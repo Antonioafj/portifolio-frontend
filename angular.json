@@ -16,6 +16,7 @@
             "outputPath": "dist/antonioafj",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "inlineStyleLanguage": "css",  
             "polyfills": [
               "zone.js"
             ],

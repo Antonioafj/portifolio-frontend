@@ -1,0 +1,48 @@
+:host {
+  display: block;
+}
+
+/* Animação suave para o modal */
+.animate-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Esconde o scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- CORREÇÃO DAS BORDAS DE ERRO --- */
+
+/* 1. Remove a borda vermelha que o Angular coloca nos inputs automaticamente */
+input.ng-invalid.ng-touched, 
+input.ng-invalid.ng-dirty,
+input:focus {
+    border: 1px solid #ccc !important; /* Cor cinza padrão */
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* 2. Estilo para a mensagem de erro (Apenas texto, sem bordas) */
+.error-message {
+    color: #ff4d4d;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    padding: 0 !important;
+    border: none !important;      /* Garante que não tenha borda */
+    background: none !important;  /* Garante que não tenha fundo */
+    box-shadow: none !important;  /* Garante que não tenha sombra */
+    outline: none !important;
+}
+
+/* 3. Garante que nenhum container de erro no modal tenha borda */
+.error-container {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}

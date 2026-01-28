@@ -1,0 +1,132 @@
+<div class="max-w-7xl mx-auto px-6 text-center py-10">
+  <div class="mb-8"></div>
+  
+  <h2 class="text-3xl md:text-4xl font-bold mb-6 uppercase tracking-widest italic text-white" style="font-family: 'Syncopate', sans-serif;">
+    Laboratório Experimental
+  </h2>
+  
+  <p class="text-slate-500 max-w-2xl mx-auto mb-12 text-sm tracking-wide">
+    Verificação de integrações Back-end em ambiente controlado.
+  </p>
+  
+  <button (click)="openModal()" 
+    class="border border-white/20 hover:border-blue-500/50 text-white px-10 py-4 rounded-full font-bold transition-all hover:bg-white/5 mx-auto tracking-widest text-xs uppercase">
+    Entrar como Convidado
+  </button>
+</div>
+
+<div *ngIf="isModalOpen" class="fixed inset-0 z-[100] overflow-y-auto bg-black/95 backdrop-blur-sm flex items-center justify-center p-4">
+  <div class="bg-black border border-white/[0.08] w-full max-w-2xl rounded-none p-10 relative shadow-2xl">
+    
+    <button (click)="closeModal()" class="absolute top-8 right-8 text-slate-600 hover:text-white transition-colors uppercase text-[10px] tracking-widest">
+      [ Fechar ]
+    </button>
+
+    <div *ngIf="errorMessage" class="mb-6 text-red-500 text-[10px] text-center uppercase tracking-widest">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="!isLoggedIn" class="py-4">
+      <div *ngIf="currentStep === 'email'" class="space-y-8 text-center animate-in fade-in duration-500">
+        <h2 class="text-xl font-bold text-white uppercase tracking-[0.3em] italic">Identificação</h2>
+        <p class="text-slate-500 max-w-md mx-auto text-[11px] uppercase tracking-wider">Solicite um código de acesso.</p>
+        <div class="max-w-xs mx-auto space-y-4">
+          <input type="text" [(ngModel)]="contactInput" (input)="onInputChange()" placeholder="E-MAIL OU TELEFONE" 
+            class="w-full bg-transparent border-b border-white/10 rounded-none px-2 py-4 text-white focus:border-blue-500 outline-none text-center text-xs tracking-widest">
+          <button (click)="goToCodeStep()" [disabled]="isLoading || !contactInput" 
+            class="w-full border border-white/10 hover:border-white/40 disabled:opacity-30 text-white py-4 rounded-none text-[10px] font-bold uppercase tracking-[0.2em] transition-all">
+            {{ isLoading ? 'Processando...' : 'Gerar Token' }}
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 'code'" class="space-y-8 text-center animate-in fade-in duration-500">
+        <h2 class="text-xl font-bold text-white uppercase tracking-[0.3em] italic">Verificação</h2>
+        <p class="text-slate-500 max-w-md mx-auto text-[11px] uppercase tracking-wider">Enviado para: <span class="text-white">{{contactInput}}</span></p>
+        <div class="max-w-xs mx-auto space-y-6">
+          <input type="text" maxlength="6" [(ngModel)]="otpCode" (input)="onInputChange()" placeholder="000000" 
+            class="w-full bg-transparent border-b border-white/20 rounded-none px-4 py-4 text-white focus:border-white outline-none text-center text-3xl tracking-[0.5em] font-light">
+          
+          <button (click)="handleLogin()" [disabled]="isLoading" 
+            class="w-full bg-white text-black py-4 rounded-none font-bold uppercase text-[10px] tracking-[0.2em] hover:bg-slate-200 transition-all">
+            {{ isLoading ? 'Validando...' : 'Confirmar Acesso' }}
+          </button>
+          
+          <button (click)="currentStep = 'email'" class="text-slate-600 hover:text-white text-[9px] uppercase tracking-widest block mx-auto">Voltar</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isLoggedIn" class="space-y-12 animate-in fade-in duration-700">
+      <div class="flex items-center justify-between border-b border-white/[0.05] pb-8">
+        <div>
+          <h3 class="text-white font-bold text-sm uppercase tracking-[0.2em]">Conexão Estabelecida</h3>
+          <p class="text-slate-600 text-[9px] font-mono mt-1 italic">{{contactInput}}</p>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="h-1.5 w-1.5 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+            <span class="text-[9px] text-slate-500 uppercase tracking-tighter">Live System</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="border border-white/[0.05] p-6 rounded-none space-y-5">
+          <div>
+            <h4 class="text-white font-bold uppercase text-[10px] tracking-widest mb-2">Endpoint: POST /test-template</h4>
+            <p class="text-slate-600 text-[10px] leading-relaxed italic">Disparo de e-mail via SMTP seguro.</p>
+          </div>
+          <div class="space-y-4">
+            <input type="email" [(ngModel)]="customEmail" (input)="onInputChange()" placeholder="DESTINATÁRIO@EMAIL.COM" 
+              class="w-full bg-transparent border-b border-white/10 rounded-none px-1 py-2 text-white text-[10px] focus:border-white outline-none tracking-widest">
+            <button (click)="executeTestEmail()" [disabled]="isLoading" 
+              class="w-full py-3 border border-white/10 hover:border-white/40 text-white rounded-none text-[9px] uppercase font-bold tracking-widest transition-all">
+              {{ isLoading ? 'Executando...' : 'Testar Integração' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="border border-white/[0.05] p-6 flex flex-col justify-between space-y-6 bg-white/[0.01]">
+          <div>
+            <h4 class="text-white font-bold uppercase text-[10px] tracking-widest mb-2" style="font-family: 'Sansation', sans-serif;">Métricas do Sistema</h4>
+            <p class="text-slate-600 text-[9px] leading-relaxed italic" style="font-family: 'Michroma', sans-serif;">Monitoramento em tempo real.</p>
+          </div>
+
+          <div class="space-y-5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="ph:download-simple-bold" class="text-blue-500/50 text-sm"></iconify-icon>
+                <span class="text-[9px] text-slate-500 uppercase tracking-tighter" style="font-family: 'Michroma', sans-serif;">CV Downloads</span>
+              </div>
+              <span class="text-white text-xs font-bold" style="font-family: 'Sansation', sans-serif;">{{ stats.cvDownloads }}</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="ph:fingerprint-bold" class="text-emerald-500/50 text-sm"></iconify-icon>
+                <span class="text-[9px] text-slate-500 uppercase tracking-tighter" style="font-family: 'Michroma', sans-serif;">Acessos Lab (OTP)</span>
+              </div>
+              <span class="text-white text-xs font-bold" style="font-family: 'Sansation', sans-serif;">{{ stats.labAccesses }}</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="ph:terminal-window-bold" class="text-orange-500/50 text-sm"></iconify-icon>
+                <span class="text-[9px] text-slate-500 uppercase tracking-tighter" style="font-family: 'Michroma', sans-serif;">API POST Tests</span>
+              </div>
+              <span class="text-white text-xs font-bold" style="font-family: 'Sansation', sans-serif;">{{ stats.apiTests }}</span>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-white/[0.05] flex justify-between items-center">
+            <span class="text-[8px] text-slate-600 uppercase tracking-[0.2em]" style="font-family: 'Michroma', sans-serif;">OCI Infra Status</span>
+            <span class="text-[8px] text-green-500 font-bold" style="font-family: 'Sansation', sans-serif;">ACTIVE</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center text-[9px] text-slate-700 font-mono uppercase tracking-[0.2em]">
+        System.log: session_event_logged_{{ today | date:'HHmm' }}
+      </p>
+    </div>
+  </div>
+</div>

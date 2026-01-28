@@ -1,0 +1,27 @@
+/* Configuração base dos slides (Inativos/Laterais) */
+swiper-slide {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave */
+  opacity: 0.3;              /* Mais transparente */
+  filter: blur(4px);         /* Embaçado */
+  transform: scale(0.85);    /* Menor que o original */
+  cursor: pointer;
+}
+
+/* Estado do Card Central (Ativo/Principal) */
+swiper-slide.swiper-slide-active {
+  opacity: 1;                /* Totalmente visível */
+  filter: blur(0);           /* Sem embaçado */
+  transform: scale(1.05);    /* Levemente maior (destaque) */
+  z-index: 10;               /* Fica por cima dos outros */
+}
+
+/* Garante que o container não corte o efeito de escala */
+swiper-container {
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+
+/* Estilização dos botões de navegação do Swiper (Opcional) */
+.swiper-button-next, .swiper-button-prev {
+  color: #3b82f6; /* Cor azul-500 */
+}

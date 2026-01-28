@@ -1,0 +1,47 @@
+.partners-swiper {
+  padding: 40px 0;
+  /* Isso ajuda no movimento linear e contínuo */
+  --swiper-wrapper-transition-timing-function: linear !important;
+}
+
+.partner-box {
+  width: 140px; 
+  height: 100px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03); 
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  filter: grayscale(100%); 
+  opacity: 0.6;
+  overflow: hidden; /* Garante que nada saia do card */
+}
+
+/* CORREÇÃO DA ORACLE: Impede que o ícone ultrapasse a div */
+.oracle-fix {
+  font-size: 28px !important; /* Um pouco menor que os outros para caber o nome */
+  max-width: 100%;
+}
+
+.partner-box iconify-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.partner-box span {
+  font-size: 9px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap; /* Impede que o nome quebre linha e saia do card */
+}
+
+swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
