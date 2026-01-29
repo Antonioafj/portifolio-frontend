@@ -1,14 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LabApiService {
-  // Separamos as URLs base para organizar melhor
-  private readonly AUTH_URL = 'http://localhost:8080/api/v1/auth';
-  private readonly METRICS_URL = 'http://localhost:8080/api/v1/metrics';
+  // Agora as URLs são montadas dinamicamente com base no ambiente (Local ou Produção)
+  private readonly AUTH_URL = `${environment.apiUrl}/auth`;
+  private readonly METRICS_URL = `${environment.apiUrl}/metrics`;
 
   constructor(private http: HttpClient) { }
 
@@ -36,7 +37,6 @@ export class LabApiService {
 
   /**
    * NOVO: Busca as métricas (downloads, acessos, testes)
-   * Esse método resolve o erro que estava dando no seu componente!
    */
   getStats(token: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
