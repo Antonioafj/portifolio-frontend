@@ -11,7 +11,7 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Set up QEMU (Para ARM64)
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
@@ -45,6 +45,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /projects/portifolio
+            git pull origin main
             docker compose pull frontend
-            docker compose up -d frontend
+            docker compose up -d --force-recreate frontend
             docker image prune -f
