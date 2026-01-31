@@ -1,19 +1,39 @@
-<div class="max-w-7xl mx-auto px-6 text-center py-10">
-  <div class="mb-8"></div>
-  
-  <h2 class="text-3xl md:text-4xl font-bold mb-6 uppercase tracking-widest italic text-white" style="font-family: 'Syncopate', sans-serif;">
-    Laboratório Experimental
-  </h2>
-  
-  <p class="text-slate-500 max-w-2xl mx-auto mb-12 text-sm tracking-wide">
-    Verificação de integrações Back-end em ambiente controlado.
-  </p>
-  
-  <button (click)="openModal()" 
-    class="border border-white/20 hover:border-blue-500/50 text-white px-10 py-4 rounded-full font-bold transition-all hover:bg-white/5 mx-auto tracking-widest text-xs uppercase">
-    Entrar como Convidado
-  </button>
-</div>
+<section class="max-w-7xl mx-auto px-6 py-20 md:py-28 border-t border-white/[0.05]">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    
+    <div class="relative group">
+      <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-lg blur opacity-10 group-hover:opacity-30 transition duration-1000"></div>
+      <div class="relative bg-black border border-white/10 p-2 rounded-lg overflow-hidden shadow-2xl">
+        <div class="absolute top-4 left-4 z-10">
+          <span class="bg-blue-600/80 backdrop-blur-md text-[8px] text-white px-3 py-1 rounded-full uppercase tracking-[0.2em] font-bold">
+            Preview Interno
+          </span>
+        </div>
+        <img src="/mod_lab.png" 
+             alt="Interface do Laboratório" 
+             class="w-full h-auto rounded-md opacity-60 group-hover:opacity-90 transition-all duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+      </div>
+    </div>
+
+    <div class="text-center lg:text-left space-y-8">
+      <div>
+        <h2 class="text-3xl md:text-5xl font-bold mb-6 uppercase tracking-widest italic text-white" style="font-family: 'Syncopate', sans-serif;">
+          Laboratório <span class="text-blue-500">Experimental</span>
+        </h2>
+        <p class="text-slate-500 max-w-xl mx-auto lg:mx-0 mb-8 text-sm md:text-base tracking-wide leading-relaxed">
+          Verificação de integrações Back-end em ambiente controlado. 
+          Acesse métricas reais e teste disparos de API em tempo real.
+        </p>
+      </div>
+      
+      <button (click)="openModal()" 
+        class="border border-white/20 hover:border-blue-500/50 text-white px-12 py-5 rounded-full font-bold transition-all hover:bg-white/5 tracking-[0.2em] text-[10px] uppercase shadow-xl">
+        Entrar como Convidado
+      </button>
+    </div>
+  </div>
+</section>
 
 <div *ngIf="isModalOpen" class="fixed inset-0 z-[100] overflow-y-auto bg-black/95 backdrop-blur-sm flex items-center justify-center p-4">
   <div class="bg-black border border-white/[0.08] w-full max-w-2xl rounded-none p-10 relative shadow-2xl">

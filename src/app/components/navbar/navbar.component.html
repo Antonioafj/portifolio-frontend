@@ -2,10 +2,12 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       
-      <div class="flex-shrink-0 cursor-pointer">
-        <span class="text-lg font-bold bg-gradient-to-r from-blue-500/80 to-emerald-500/60 bg-clip-text text-transparent tracking-[0.15em]" style="font-family: 'Michroma', sans-serif;">
-          ANTONIO.dev
-        </span>
+      <div class="flex-shrink-0">
+        <a href="/" class="cursor-pointer">
+          <span class="text-lg font-bold bg-gradient-to-r from-blue-500/80 to-emerald-500/60 bg-clip-text text-transparent tracking-[0.15em]" style="font-family: 'Michroma', sans-serif;">
+            ANTONIO.dev
+          </span>
+        </a>
       </div>
 
       <div class="hidden md:block">
@@ -13,6 +15,7 @@
           <a href="#home" class="text-slate-200 hover:text-blue-400 px-3 py-2 text-[10px] uppercase tracking-[0.2em] font-medium transition-all" style="font-family: 'Michroma', sans-serif;">Home</a>
           <a href="#portfolio" class="text-slate-200 hover:text-blue-400 px-3 py-2 text-[10px] uppercase tracking-[0.2em] font-medium transition-all" style="font-family: 'Michroma', sans-serif;">Portfólio</a>
           <a href="#about" class="text-slate-200 hover:text-blue-400 px-3 py-2 text-[10px] uppercase tracking-[0.2em] font-medium transition-all" style="font-family: 'Michroma', sans-serif;">Sobre</a>
+          <a href="#contact" class="text-slate-200 hover:text-blue-400 px-3 py-2 text-[10px] uppercase tracking-[0.2em] font-medium transition-all" style="font-family: 'Michroma', sans-serif;">Contato</a>
           
           <a href="#modo-lab" class="text-emerald-400 border border-emerald-500/30 bg-emerald-500/5 px-4 py-1.5 rounded-sm text-[10px] uppercase tracking-[0.2em] font-medium hover:bg-emerald-500/10 transition-all" style="font-family: 'Syncopate', sans-serif;">
             Modo Lab
@@ -23,6 +26,7 @@
       <div class="hidden md:block">
         <a href="/curriculo.pdf" 
            download="Curriculo_Antonio.pdf"
+           type="application/pdf"
            (click)="trackDownload()"
            class="inline-block border border-blue-600/50 text-blue-300 px-5 py-2 rounded-sm text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-blue-600/10 transition-all" 
            style="font-family: 'Sansation', sans-serif;">
@@ -31,12 +35,41 @@
       </div>
 
       <div class="md:hidden flex items-center">
-        <button class="text-slate-200 hover:text-white">
-          <iconify-icon icon="line-md:menu" class="text-2xl"></iconify-icon>
+        <button (click)="toggleMenu()" class="text-slate-200 hover:text-white focus:outline-none p-2">
+          <iconify-icon [icon]="isMenuOpen ? 'line-md:close' : 'line-md:menu'" class="text-2xl"></iconify-icon>
         </button>
       </div>
 
     </div>
   </div>
+
+  <div class="md:hidden bg-black/95 border-b border-white/[0.05] transition-all duration-300 overflow-hidden"
+       [class.max-h-0]="!isMenuOpen"
+       [class.max-h-96]="isMenuOpen"
+       [class.opacity-0]="!isMenuOpen"
+       [class.opacity-100]="isMenuOpen">
+    <div class="px-4 pt-2 pb-6 space-y-2">
+      <a href="#home" (click)="isMenuOpen = false" class="block text-slate-200 hover:text-blue-400 px-3 py-3 text-[10px] uppercase tracking-[0.2em] font-medium transition-all" style="font-family: 'Michroma', sans-serif;">Home</a>
+      <a href="#portfolio" (click)="isMenuOpen = false" class="block text-slate-200 hover:text-blue-400 px-3 py-3 text-[10px] uppercase tracking-[0.2em] font-medium transition-all" style="font-family: 'Michroma', sans-serif;">Portfólio</a>
+      <a href="#about" (click)="isMenuOpen = false" class="block text-slate-200 hover:text-blue-400 px-3 py-3 text-[10px] uppercase tracking-[0.2em] font-medium transition-all" style="font-family: 'Michroma', sans-serif;">Sobre</a>
+      <a href="#contact" (click)="isMenuOpen = false" class="block text-slate-200 hover:text-blue-400 px-3 py-3 text-[10px] uppercase tracking-[0.2em] font-medium transition-all" style="font-family: 'Michroma', sans-serif;">Contato</a>
+      
+      <a href="#modo-lab" (click)="isMenuOpen = false" class="block text-emerald-400 px-3 py-3 text-[10px] uppercase tracking-[0.2em] font-medium transition-all" style="font-family: 'Syncopate', sans-serif;">
+        Modo Lab
+      </a>
+
+      <div class="pt-4 px-3">
+        <a href="/curriculo.pdf" 
+           download="Curriculo_Antonio.pdf"
+           type="application/pdf"
+           (click)="trackDownload()"
+           class="block text-center border border-blue-600/50 text-blue-300 py-3 rounded-sm text-[10px] uppercase tracking-[0.2em] font-bold" 
+           style="font-family: 'Sansation', sans-serif;">
+          Download CV
+        </a>
+      </div>
+    </div>
+  </div>
 </nav>
+
 <div class="h-16"></div>

@@ -1,0 +1,14 @@
+/* Transforma as tags do Angular em blocos para aceitarem margem e largura total */
+app-hero, 
+app-about, 
+app-projects, 
+app-contact {
+    display: block;       /* Essencial para aceitar margens verticais */
+    margin-bottom: 80px;  /* Ajuste este valor conforme o gosto (ex: 5rem ou 100px) */
+    width: 100%;          /* Garante que ocupem a largura total do container */
+}
+
+/* Remove a margem do último elemento para o rodapé não ficar com espaço sobrando */
+app-contact {
+    margin-bottom: 0;
+}
