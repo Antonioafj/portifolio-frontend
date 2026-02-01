@@ -40,24 +40,21 @@ jobs:
       - name: Atualizar Servidor via SSH
         uses: appleboy/ssh-action@master
         with:
-          # Destino Final (Instância do Portfólio)
           host: ${{ secrets.PORTFOLIO_PRIVATE_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # Ponte (Instância do Gateway)
           proxy_host: ${{ secrets.SERVER_IP }}
           proxy_username: ${{ secrets.SERVER_USER }}
           proxy_key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # 1. Entra na pasta correta no servidor de destino
             cd ~/projects/portifolio
+            # Força sincronia com o GitHub ignorando erros de permissão anteriores
+            git fetch origin main
+            git reset --hard origin/main
             
-            # 2. Puxa as atualizações do GitHub (exige o Token configurado na URL do Git no servidor)
-            git pull origin main
+            # Comando confirmado: docker compose (sem hífen)
+            docker compose pull frontend
+            docker compose up -d --force-recreate frontend
             
-            # 3. Atualiza e recria o container usando o comando com hífen
-            docker-compose pull frontend
-            docker-compose up -d --force-recreate frontend
-            
-            # 4. Limpa imagens órfãs
+            # Limpeza de imagens antigas
             docker image prune -f
