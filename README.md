@@ -108,8 +108,9 @@ O site está em produção, hospedado em ambiente cloud, utilizando:
 
 ---
 
-## 🔗 Link do site
+<p align="center">
+  <a href="https://antonioafj.dev" target="_blank" rel="noopener noreferrer">
+    🌐 Acessar o site em produção
+  </a>
+</p>
 
-👉 <a href="https://antonioafj.dev/" target="_blank" rel="noopener noreferrer">
-  https://antonioafj.dev/
-</a>
